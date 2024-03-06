@@ -35,7 +35,6 @@
         android:layout_height="wrap_content"
         android:textStyle="italic"
         android:textSize="@dimen/fact_text_size"
-        android:lines="2"
         android:textColor="@color/pink"
         android:layout_marginTop="@dimen/default_indentation"
         tools:text="random fact about number"

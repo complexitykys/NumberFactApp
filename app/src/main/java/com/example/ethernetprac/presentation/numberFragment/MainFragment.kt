@@ -7,27 +7,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.ethernetprac.R
 import com.example.ethernetprac.databinding.FragmentMainBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
 
+    private val viewModel by viewModels<MainViewModel>()
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.numberEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -45,9 +49,27 @@ class MainFragment : Fragment() {
         })
 
         binding.getNumberBtn.setOnClickListener {
-            binding.numberFactView.text = "abra cadabra"
+            val number =
+                binding.numberEditText.text.toString().toLong()
+
+            binding.progressBar.visibility = View.VISIBLE
+            binding.numberFactView.visibility = View.INVISIBLE
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(2000)
+                binding.progressBar.visibility = View.GONE
+                binding.numberFactView.visibility = View.VISIBLE
+                viewModel.fetchNumberFact(number)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.numberFact.collect { fact ->
+                binding.numberFactView.text = fact
+            }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
