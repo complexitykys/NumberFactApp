@@ -2,4 +2,7 @@
 <resources>
     <dimen name="default_indentation">20dp</dimen>
     <dimen name="fact_text_size">20sp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="big_text_size">48sp</dimen>
+    <dimen name="normal_padding">26dp</dimen>
 </resources>

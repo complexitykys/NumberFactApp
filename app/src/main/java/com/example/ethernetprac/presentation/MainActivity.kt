@@ -2,19 +2,18 @@ package com.example.ethernetprac.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.example.ethernetprac.R
-import com.example.ethernetprac.presentation.numberFragment.MainFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            val fragment = MainFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContainerView, fragment)
-                .commit()
-        }
+
+        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHost.navController
     }
 }

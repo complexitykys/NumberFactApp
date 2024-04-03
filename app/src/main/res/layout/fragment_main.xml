@@ -6,8 +6,9 @@
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    tools:context=".presentation.main.MainFragment">
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
@@ -16,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
-        
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/numberEditText"
             android:layout_width="match_parent"
@@ -33,9 +34,9 @@
         android:id="@+id/numberFactView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="italic"
+        android:textStyle="bold"
         android:textSize="@dimen/fact_text_size"
-        android:textColor="@color/pink"
+        android:textColor="@color/black"
         android:layout_marginTop="@dimen/default_indentation"
         tools:text="random fact about number"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,14 +58,48 @@
 
     <Button
         android:id="@+id/getNumberBtn"
-        android:layout_width="150dp"
+        android:layout_width="195dp"
         android:layout_height="50dp"
         android:text="@string/get_fact"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="@color/white"
         android:textSize="@dimen/fact_text_size"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/default_indentation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numberFactView"/>
+
+    <Button
+        android:id="@+id/getRandomNumberBtn"
+        android:layout_width="195dp"
+        android:layout_height="50dp"
+        android:text="@string/random_fact"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:textSize="@dimen/fact_text_size"
+        android:layout_marginTop="@dimen/default_indentation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getNumberBtn"/>
+
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/getRandomNumberBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/factHistoryList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_list"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lineView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

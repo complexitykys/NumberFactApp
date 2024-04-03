@@ -2,6 +2,8 @@
     <string name="app_name">ethernetPrac</string>
     <string name="number_fact">Number fact</string>
     <string name="enter_number">Enter Number</string>
-    <string name="get_fact">GET FACT</string>
+    <string name="get_fact">get fact</string>
     <string name="error_text_for_max_length">Max number length is 10</string>
+    <string name="random_fact">random fact</string>
+    <string name="go_back">go back</string>
 </resources>
