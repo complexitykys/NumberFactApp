@@ -2,13 +2,13 @@ package com.example.ethernetprac.presentation.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.ethernetprac.presentation.model.NumberFactUi
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import com.example.ethernetprac.databinding.ItemListBinding
+import com.example.ethernetprac.presentation.model.NumberFactUi
 
 
 class NumberFactAdapter(private val listener: OnNumberClickListener) :
-    ListAdapter<NumberFactUi, NumberFactViewHolder>(NumberDiffUtils()) {
+    PagingDataAdapter<NumberFactUi, NumberFactViewHolder>(NumberDiffUtils()) {
 
     interface OnNumberClickListener {
         fun onNumberClick(number: NumberFactUi)
@@ -22,9 +22,9 @@ class NumberFactAdapter(private val listener: OnNumberClickListener) :
     }
 
     override fun onBindViewHolder(holder: NumberFactViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
         holder.itemView.setOnClickListener {
-            listener.onNumberClick(getItem(position))
+            getItem(position)?.let { listener.onNumberClick(it) }
         }
 
     }

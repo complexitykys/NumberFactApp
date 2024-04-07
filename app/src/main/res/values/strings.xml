@@ -6,4 +6,6 @@
     <string name="error_text_for_max_length">Max number length is 10</string>
     <string name="random_fact">random fact</string>
     <string name="go_back">go back</string>
+    <string name="test_number">42</string>
+    <string name="test_fact">42 is cool</string>
 </resources>

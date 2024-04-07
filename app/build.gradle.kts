@@ -49,6 +49,7 @@ dependencies {
     val room_version = "2.6.1"
     val nav_version = "2.7.7"
     val hilt_version = "2.48"
+    val paging_version = "3.2.1"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -76,6 +77,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
 
 }
 

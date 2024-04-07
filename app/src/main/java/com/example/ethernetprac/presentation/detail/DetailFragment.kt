@@ -37,8 +37,8 @@ class DetailFragment : Fragment(R.layout.fragment_details) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.numberDetail.collect { numberDetail ->
                 with(binding) {
-                    numberTextView.text = numberDetail.number
-                    factTextView.text = numberDetail.fact
+                    numberTextView.text = numberDetail?.number ?: getString(R.string.test_number)
+                    factTextView.text = numberDetail?.fact ?: getString(R.string.test_fact)
                 }
             }
         }

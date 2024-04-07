@@ -14,9 +14,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val viewModelNavigator: ViewModelNavigatorImpl
 ) : ViewModel(), ViewModelNavigator by viewModelNavigator {
-    private val numberFactUi = NumberFactUi("42", "fact")
-    private val _numberDetail = MutableStateFlow(numberFactUi)
-    val numberDetail: StateFlow<NumberFactUi> = _numberDetail
+    private val _numberDetail = MutableStateFlow<NumberFactUi?>(null)
+    val numberDetail: StateFlow<NumberFactUi?> = _numberDetail
 
     fun setNumber(numberFactUi: NumberFactUi) {
         _numberDetail.value = numberFactUi
@@ -25,5 +24,4 @@ class DetailViewModel @Inject constructor(
     fun onBackPressed() {
         navigateBack()
     }
-
 }

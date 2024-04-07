@@ -7,6 +7,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import com.example.ethernetprac.R
 import com.example.ethernetprac.databinding.FragmentMainBinding
 import com.example.ethernetprac.domain.model.NumberData
@@ -17,6 +18,7 @@ import com.example.ethernetprac.utils.Failure
 import com.example.ethernetprac.utils.Success
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -43,12 +45,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         binding.factHistoryList.adapter = adapter
 
+        binding.getNumberBtn.isEnabled = false
+
         textWatcher = binding.numberEditText.doOnTextChanged { s, _, _, _ ->
             if (s?.length == 10) {
                 binding.numberEditText.error = getString(R.string.error_text_for_max_length)
             } else {
                 binding.numberEditText.error = null
             }
+            binding.getNumberBtn.isEnabled = !s.isNullOrBlank()
         }
 
         binding.getNumberBtn.setOnClickListener {
@@ -88,8 +93,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.facts.collect { list ->
-                adapter.submitList(list)
+            viewModel.facts.collectLatest { list ->
+                val pagingData = PagingData.from(list)
+                adapter.submitData(pagingData)
             }
         }
     }
