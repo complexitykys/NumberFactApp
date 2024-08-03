@@ -1,14 +1,15 @@
 package com.example.ethernetprac.di
 
 import com.example.ethernetprac.data.network.NumberApiService
+import com.example.ethernetprac.data.network.NumberApiServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 
@@ -16,46 +17,32 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "http://numbersapi.com/"
-
     @Provides
     @Singleton
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder().build()
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(
-        client: OkHttpClient,
-        scalarsConverterFactory: ScalarsConverterFactory
-    )
-            : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(scalarsConverterFactory)
-            .build()
+    fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
+        return HttpClient(OkHttp) {
+            engine {
+                preconfigured = okHttpClient
+            }
+        }
     }
 
     @Provides
     @Singleton
-    fun provideNumberApi(retrofit: Retrofit): NumberApiService {
-        return retrofit.create(NumberApiService::class.java)
+    fun provideNumberApi(httpClient: HttpClient): NumberApiService {
+        return NumberApiServiceImpl(httpClient)
     }
 
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor()
-    }
-
-    @Provides
-    @Singleton
-    fun provideScalarsConverterFactory(): ScalarsConverterFactory {
-        return ScalarsConverterFactory.create()
     }
 
 }

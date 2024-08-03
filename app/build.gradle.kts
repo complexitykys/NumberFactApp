@@ -45,11 +45,11 @@ android {
 dependencies {
 
     val okhttp_version = "4.9.3"
-    val retrofit_version = "2.9.0"
     val room_version = "2.6.1"
     val nav_version = "2.7.7"
     val hilt_version = "2.48"
     val paging_version = "3.2.1"
+    val ktor_version = "2.3.12"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -64,8 +64,6 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
     implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
-    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation("com.squareup.retrofit2:converter-scalars:$retrofit_version")
 
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
@@ -80,6 +78,8 @@ dependencies {
 
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
 
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-okhttp:$ktor_version")
 }
 
 kapt {
